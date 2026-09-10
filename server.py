@@ -3,9 +3,12 @@ Servidor de chat básico basado en sockets TCP.
 """
 
 import socket
+import sqlite3
+from datetime import datetime
 
 HOST = "localhost"
 PORT = 5000
+DB_PATH = "mensajes.db"
 
 
 def iniciar_socket():
@@ -38,6 +41,50 @@ def iniciar_socket():
     return servidor
 
 
+def inicializar_db():
+    """
+    Crea la tabla `mensajes` en la base SQLite si todavía no existe.
+    """
+    # Inserción / esquema en base de datos
+    try:
+        with sqlite3.connect(DB_PATH) as db:
+            db.execute(
+                """
+                CREATE TABLE IF NOT EXISTS mensajes (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    contenido TEXT NOT NULL,
+                    fecha_envio TEXT NOT NULL,
+                    ip_cliente TEXT NOT NULL
+                )
+                """
+            )
+    except sqlite3.Error as error:
+        print(f"[ERROR] No se pudo inicializar la base de datos -> {error}")
+        raise
+
+
+def guardar_mensaje(contenido, ip_cliente):
+    """
+    Inserta un mensaje recibido en la tabla `mensajes`.
+
+    Devuelve el timestamp (fecha_envio) con el que quedó guardado,
+    o None si no se pudo guardar por un error de base de datos.
+    """
+    fecha_envio = datetime.now().isoformat(timespec="seconds")
+
+    try:
+        with sqlite3.connect(DB_PATH) as db:
+            db.execute(
+                "INSERT INTO mensajes (contenido, fecha_envio, ip_cliente) VALUES (?, ?, ?)",
+                (contenido, fecha_envio, ip_cliente),
+            )
+    except sqlite3.Error as error:
+        print(f"[ERROR] No se pudo guardar el mensaje en la base de datos -> {error}")
+        return None
+
+    return fecha_envio
+
+
 def manejar_cliente(conn, addr):
     """
     Atiende una conexión de cliente ya aceptada.
@@ -63,11 +110,14 @@ def manejar_cliente(conn, addr):
                 print(f"[INFO] Cliente {addr} finalizó la sesión")
                 break
 
-            # Placeholder: acá en el siguiente paso va guardar_mensaje()
-            # y la respuesta al cliente (secciones 1.3 y 1.5 del PLAN.md).
+            guardar_mensaje(mensaje, addr[0])
+
+            # Placeholder: acá en el siguiente paso va la respuesta
+            # al cliente (sección 1.5 del PLAN.md).
 
 
 def main():
+    inicializar_db()
     servidor = iniciar_socket()
     try:
         while True:

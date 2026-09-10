@@ -30,15 +30,15 @@ para explicar las configuraciones del servidor.
   - Decodifica el mensaje recibido.
 
 ### 1.3 Guardar mensaje en base de datos
-- [ ] Función `guardar_mensaje(contenido, ip_cliente)` que inserta en SQLite.
-- [ ] Esquema de la tabla `mensajes`:
+- [x] Función `guardar_mensaje(contenido, ip_cliente)` que inserta en SQLite.
+- [x] Esquema de la tabla `mensajes`:
   | Campo         | Tipo     | Descripción                     |
   |---------------|----------|----------------------------------|
   | id            | INTEGER  | PK autoincremental               |
   | contenido     | TEXT     | Mensaje enviado por el cliente   |
   | fecha_envio   | TEXT     | Timestamp de recepción           |
   | ip_cliente    | TEXT     | IP del cliente que envió         |
-- [ ] Función `inicializar_db()` que crea la tabla si no existe.
+- [x] Función `inicializar_db()` que crea la tabla si no existe.
 
 ### 1.4 Manejo de errores
 - [ ] Puerto ocupado (`OSError` al hacer `bind`) → mensaje claro y salida controlada.
