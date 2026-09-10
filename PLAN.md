@@ -41,9 +41,9 @@ para explicar las configuraciones del servidor.
 - [x] Función `inicializar_db()` que crea la tabla si no existe.
 
 ### 1.4 Manejo de errores
-- [ ] Puerto ocupado (`OSError` al hacer `bind`) → mensaje claro y salida controlada.
-- [ ] Base de datos no accesible (errores de `sqlite3`) → capturar excepción y loggear.
-- [ ] Errores de conexión con el cliente (`ConnectionResetError`, etc.) → no debe tirar abajo el servidor completo.
+- [x] Puerto ocupado (`OSError` al hacer `bind`) → mensaje claro y salida controlada.
+- [x] Base de datos no accesible (errores de `sqlite3`) → capturar excepción y loggear.
+- [x] Errores de conexión con el cliente (`ConnectionResetError`, etc.) → no debe tirar abajo el servidor completo.
 
 ### 1.5 Responder al cliente
 - [ ] Tras guardar el mensaje, responder con: `"Mensaje recibido: <timestamp>"`.
