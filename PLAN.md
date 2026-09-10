@@ -18,10 +18,10 @@ para explicar las configuraciones del servidor.
 ## 1. Servidor (`server.py`)
 
 ### 1.1 Inicializar el socket
-- [ ] Función `iniciar_socket()` que crea el socket TCP/IP (`AF_INET`, `SOCK_STREAM`).
-- [ ] Bind a `localhost:5000`.
-- [ ] `listen()` para aceptar conexiones entrantes.
-- [ ] Comentar la sección: `# Configuración del socket TCP/IP`.
+- [x] Función `iniciar_socket()` que crea el socket TCP/IP (`AF_INET`, `SOCK_STREAM`).
+- [x] Bind a `localhost:5000`.
+- [x] `listen()` para aceptar conexiones entrantes.
+- [x] Comentar la sección: `# Configuración del socket TCP/IP`.
 
 ### 1.2 Aceptar conexiones y recibir mensajes
 - [ ] Función `manejar_cliente(conn, addr)` (o loop principal) que:
