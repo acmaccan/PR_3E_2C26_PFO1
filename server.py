@@ -38,12 +38,43 @@ def iniciar_socket():
     return servidor
 
 
+def manejar_cliente(conn, addr):
+    """
+    Atiende una conexión de cliente ya aceptada.
+
+    Recibe mensajes en un loop hasta que el cliente cierre la conexión
+    o envíe la palabra "éxito" (que cierra la sesión desde el servidor).
+    """
+    print(f"[INFO] Cliente conectado: {addr}")
+
+    with conn:
+        while True:
+            datos = conn.recv(1024)
+
+            if not datos:
+                # El cliente cerró la conexión sin enviar "éxito"
+                print(f"[INFO] Cliente {addr} cerró la conexión")
+                break
+
+            mensaje = datos.decode("utf-8").strip()
+            print(f"[INFO] Mensaje recibido de {addr}: {mensaje}")
+
+            if mensaje.lower() == "éxito":
+                print(f"[INFO] Cliente {addr} finalizó la sesión")
+                break
+
+            # Placeholder: acá en el siguiente paso va guardar_mensaje()
+            # y la respuesta al cliente (secciones 1.3 y 1.5 del PLAN.md).
+
+
 def main():
     servidor = iniciar_socket()
     try:
-        # Placeholder: en el siguiente paso acá va el loop de accept()
-        # y el manejo de clientes (sección 1.2 del PLAN.md).
-        pass
+        while True:
+            conn, addr = servidor.accept()
+            manejar_cliente(conn, addr)
+    except KeyboardInterrupt:
+        print("\n[INFO] Servidor detenido manualmente")
     finally:
         servidor.close()
 
