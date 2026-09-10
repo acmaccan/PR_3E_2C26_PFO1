@@ -24,7 +24,7 @@ para explicar las configuraciones del servidor.
 - [x] Comentar la sección: `# Configuración del socket TCP/IP`.
 
 ### 1.2 Aceptar conexiones y recibir mensajes
-- [ ] Función `manejar_cliente(conn, addr)` (o loop principal) que:
+- [x] Función `manejar_cliente(conn, addr)` (o loop principal) que:
   - Acepta la conexión (`accept()`).
   - Recibe datos (`recv()`) en un loop hasta que el cliente cierre o envíe `éxito`.
   - Decodifica el mensaje recibido.
