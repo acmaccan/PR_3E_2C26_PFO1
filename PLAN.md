@@ -73,26 +73,26 @@ def main(): ...
 
 ## 3. Base de datos
 
-- [ ] Usar el módulo `sqlite3` (nativo de Python, sin dependencias extra).
-- [ ] Archivo de DB, por ejemplo `mensajes.db`, en la raíz del proyecto.
-- [ ] Verificar que la tabla se crea automáticamente al iniciar el servidor.
+- [x] Usar el módulo `sqlite3` (nativo de Python, sin dependencias extra).
+- [x] Archivo de DB, por ejemplo `mensajes.db`, en la raíz del proyecto.
+- [x] Verificar que la tabla se crea automáticamente al iniciar el servidor.
 
 ---
 
 ## 4. Buenas prácticas
 
-- [ ] Modularizar: separar funciones por responsabilidad (socket, DB, manejo de errores).
-- [ ] Comentar cada sección clave (ej: `# Configuración del socket TCP/IP`, `# Inserción en base de datos`).
-- [ ] Manejo de excepciones con `try/except` específicos, no genéricos silenciosos.
-- [ ] (Opcional) Logging en vez de `print` para trazabilidad.
+- [x] Modularizar: separar funciones por responsabilidad (socket, DB, manejo de errores).
+- [x] Comentar cada sección clave (ej: `# Configuración del socket TCP/IP`, `# Inserción en base de datos`).
+- [x] Manejo de excepciones con `try/except` específicos, no genéricos silenciosos.
+- [x] Logging en vez de `print` para trazabilidad.
 
 ---
 
 ## 5. Pruebas locales
 
-- [ ] Ejecutar primero el servidor: `python server.py`.
-- [ ] Ejecutar el cliente en otra terminal: `python client.py`.
-- [ ] Probar:
+- [x] Ejecutar primero el servidor: `python server.py`.
+- [x] Ejecutar el cliente en otra terminal: `python client.py`.
+- [x] Probar:
   - Envío de varios mensajes seguidos.
   - Cierre correcto al escribir `éxito`.
   - Verificar que los mensajes quedan guardados en la DB (consultar con `sqlite3` o script auxiliar).
@@ -102,16 +102,15 @@ def main(): ...
 
 ## 6. Entrega
 
-- [ ] Subir el código a un repositorio (GitHub / Bitbucket) **o**
-- [ ] Comprimir la solución en `.zip` / `.rar` si no se usa repositorio.
-- [ ] Incluir un `README.md` con instrucciones de ejecución (cómo levantar servidor y cliente).
+- [x] Subir el código a un repositorio (GitHub / Bitbucket)
+- [x] Incluir un `README.md` con instrucciones de ejecución (cómo levantar servidor y cliente).
 
 ---
 
 ## Estructura de archivos propuesta
 
 ```
-pfo-01/
+PR_3E_2C26_PFO1/
 ├── server.py
 ├── client.py
 ├── mensajes.db        # generado en runtime

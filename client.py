@@ -2,10 +2,13 @@
 Cliente de chat básico basado en sockets TCP.
 """
 
+import logging
 import socket
 
 HOST = "localhost"
 PORT = 5000
+
+logger = logging.getLogger(__name__)
 
 
 def conectar():
@@ -18,13 +21,13 @@ def conectar():
         cliente.connect((HOST, PORT))
     except ConnectionRefusedError:
         # El servidor no está levantado o no está escuchando en ese puerto.
-        print(f"[ERROR] No se pudo conectar a {HOST}:{PORT}. ¿Está el servidor corriendo?")
+        logger.error("No se pudo conectar a %s:%s. ¿Está el servidor corriendo?", HOST, PORT)
         raise
     except OSError as error:
-        print(f"[ERROR] No se pudo conectar a {HOST}:{PORT} -> {error}")
+        logger.error("No se pudo conectar a %s:%s -> %s", HOST, PORT, error)
         raise
 
-    print(f"[INFO] Conectado al servidor en {HOST}:{PORT}")
+    logger.info("Conectado al servidor en %s:%s", HOST, PORT)
     return cliente
 
 
@@ -43,25 +46,33 @@ def loop_envio(cliente):
                 cliente.sendall(mensaje.encode("utf-8"))
 
                 if mensaje.lower() == "éxito":
-                    print("[INFO] Cerrando conexión")
+                    logger.info("Cerrando conexión")
                     break
 
                 respuesta = cliente.recv(1024)
 
                 if not respuesta:
                     # El servidor cerró la conexión inesperadamente.
-                    print("[ERROR] El servidor cerró la conexión")
+                    logger.error("El servidor cerró la conexión")
                     break
 
+                # Respuesta del servidor: es contenido de la conversación,
+                # no un log de trazabilidad, así que se muestra con print().
                 print(f"[SERVIDOR] {respuesta.decode('utf-8')}")
             except ConnectionError as error:
                 # ConnectionResetError, BrokenPipeError, etc.: se perdió
                 # la conexión con el servidor durante el envío/recepción.
-                print(f"[ERROR] Se perdió la conexión con el servidor -> {error}")
+                logger.error("Se perdió la conexión con el servidor -> %s", error)
                 break
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
     try:
         cliente = conectar()
     except OSError:
