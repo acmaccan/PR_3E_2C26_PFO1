@@ -111,10 +111,14 @@ def manejar_cliente(conn, addr):
                     print(f"[INFO] Cliente {addr} finalizó la sesión")
                     break
 
-                guardar_mensaje(mensaje, addr[0])
+                fecha_envio = guardar_mensaje(mensaje, addr[0])
 
-                # Placeholder: acá en el siguiente paso va la respuesta
-                # al cliente (sección 1.5 del PLAN.md).
+                if fecha_envio is not None:
+                    respuesta = f"Mensaje recibido: {fecha_envio}"
+                else:
+                    respuesta = "Mensaje recibido, pero no se pudo guardar"
+
+                conn.sendall(respuesta.encode("utf-8"))
     except ConnectionError as error:
         # El cliente se desconectó abruptamente (ConnectionResetError,
         # BrokenPipeError, etc.). Se registra y se sigue atendiendo
