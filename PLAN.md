@@ -61,13 +61,13 @@ def main(): ...
 
 ## 2. Cliente (`client.py`)
 
-- [ ] Conectarse al servidor (`localhost:5000`).
-- [ ] Loop de envío de mensajes:
+- [x] Conectarse al servidor (`localhost:5000`).
+- [x] Loop de envío de mensajes:
   - Pedir input al usuario.
   - Enviar mensaje al servidor.
   - Mostrar la respuesta recibida.
   - Repetir hasta que el usuario escriba `éxito` (cierra la conexión).
-- [ ] Manejo básico de errores de conexión (servidor no disponible, etc.).
+- [x] Manejo básico de errores de conexión (servidor no disponible, etc.).
 
 ---
 
