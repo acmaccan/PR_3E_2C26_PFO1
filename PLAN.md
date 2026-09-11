@@ -46,7 +46,7 @@ para explicar las configuraciones del servidor.
 - [x] Errores de conexión con el cliente (`ConnectionResetError`, etc.) → no debe tirar abajo el servidor completo.
 
 ### 1.5 Responder al cliente
-- [ ] Tras guardar el mensaje, responder con: `"Mensaje recibido: <timestamp>"`.
+- [x] Tras guardar el mensaje, responder con: `"Mensaje recibido: <timestamp>"`.
 
 ### 1.6 Estructura sugerida de funciones
 ```python
