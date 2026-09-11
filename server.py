@@ -94,26 +94,35 @@ def manejar_cliente(conn, addr):
     """
     print(f"[INFO] Cliente conectado: {addr}")
 
-    with conn:
-        while True:
-            datos = conn.recv(1024)
+    try:
+        with conn:
+            while True:
+                datos = conn.recv(1024)
 
-            if not datos:
-                # El cliente cerró la conexión sin enviar "éxito"
-                print(f"[INFO] Cliente {addr} cerró la conexión")
-                break
+                if not datos:
+                    # El cliente cerró la conexión sin enviar "éxito"
+                    print(f"[INFO] Cliente {addr} cerró la conexión")
+                    break
 
-            mensaje = datos.decode("utf-8").strip()
-            print(f"[INFO] Mensaje recibido de {addr}: {mensaje}")
+                mensaje = datos.decode("utf-8").strip()
+                print(f"[INFO] Mensaje recibido de {addr}: {mensaje}")
 
-            if mensaje.lower() == "éxito":
-                print(f"[INFO] Cliente {addr} finalizó la sesión")
-                break
+                if mensaje.lower() == "éxito":
+                    print(f"[INFO] Cliente {addr} finalizó la sesión")
+                    break
 
-            guardar_mensaje(mensaje, addr[0])
+                guardar_mensaje(mensaje, addr[0])
 
-            # Placeholder: acá en el siguiente paso va la respuesta
-            # al cliente (sección 1.5 del PLAN.md).
+                # Placeholder: acá en el siguiente paso va la respuesta
+                # al cliente (sección 1.5 del PLAN.md).
+    except ConnectionError as error:
+        # El cliente se desconectó abruptamente (ConnectionResetError,
+        # BrokenPipeError, etc.). Se registra y se sigue atendiendo
+        # al resto de las conexiones sin tirar abajo el servidor.
+        print(f"[ERROR] Conexión perdida con {addr} -> {error}")
+    except UnicodeDecodeError as error:
+        # Datos recibidos que no se pudieron decodificar como texto.
+        print(f"[ERROR] Mensaje inválido recibido de {addr} -> {error}")
 
 
 def main():
